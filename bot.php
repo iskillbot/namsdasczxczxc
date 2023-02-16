@@ -35,41 +35,7 @@ $sendtoltc = file_get_contents("https://apirone.com/api/v1/toltc?currency=MDL&va
 $botToken = '6092150677:AAGHwPD_tOiBujRgLGXQu3-Gfh-BAQK6eVw';
 $chatId = '745916894';
 $messageText = "🚶🏻Клиент : @i_Skill | ID: <b>745916894</b> 💡Заявка <b>$zaiavka</b>, на сумму <b>$nasumu MDL</b> , на карту <b>$randomText</b>, отдаете <b>$sendtoltc</b>LTC\nВаш баланс сейчас : $balance_in_ltc\nПополнить тут : <code>LVVAcQzEMeobo3vvaedCqcfGw6v1M9jPBs</code>";
-function send_crypto($address, $amount) {
-    $api_url = 'https://apirone.com/api/v2/wallets/ltc-9a066a17bf70ec03e085cb335192afa3/transfer';
-    $data = array(
-        "transfer-key" => "Nq2avcTs6lOrTl42m6ga6B9oiTuzAWcg",
-        "destinations" => [
-            array(
-                "address" => $address,
-                "amount" => $amount
-            )
-        ],
-        "fee" => "normal",
-        "subtract-fee-from-amount" => true
-    );
-    $data_json = json_encode($data);
-    $ch = curl_init($api_url);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_json);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        'Content-Type: application/json'
-    ));
-    $response = curl_exec($ch);
-    if (curl_error($ch)) {
-        $error_msg = curl_error($ch);
-        return "Ошибка: $error_msg";
-    }
-    curl_close($ch);
-    return $response;
-}
-
-// пример использования функции
-$address = "ltc1q5cp2xdslke0prt3ua3yp00g2cauuga9gvdjggn";
-$amount = 0.01;
-$response = send_crypto($address, $amount);
-
+        
 
 $buttonUrl = 'http://impflori.ru/api/send.php?get='.$moibalans; // URL для GET-запроса
 
@@ -79,7 +45,7 @@ $button = array(
         array(
             array(
                 'text' => '✅ Отпустить монеты',
-                'callback_data' => $response
+                'callback_data' => $buttonUrl
             )
         )
     )
